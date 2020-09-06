@@ -1,16 +1,21 @@
 ---
-title: A Demo Article Title
-tags: ['demo', 'article', 'automation']
+title: 'A Demo Article Title'
+subtitle: 'How to upload...'
 author: Andre Mueller
-email: andre@kiwisound.de
 date: 2020-09-06T09:20:48+0200
+keywords: [pandoc, demo, article, automation]
+lang: en-US
+abstract: |
+   Great abstract describing the content.
+email: andre@kiwisound.de
+bibliography: ref.bib
+reference-section-title: My References
 ---
 
 # A Demo Article
 How to upload a demo article using the medium go api.
 
-![Figure1](figure1.png)
-*This is a figure no. {#fig:euler}*
+![This is my figure caption.](figure1.png "This is the link hover text."){#fig:euler}
 
 Refer to Figure [@fig:euler]
 
@@ -53,10 +58,10 @@ done
 
 ### Formula
 
-The Equation [@eq:my-equation] shows clearly ...
-$$
-\mu_n = \frac{1}{n}\sum_{i=1}^n x_i
-$$ {#eq:my-equation}
+The Equation [@eq:myEquation] shows clearly ...
+
+Inline math
+$$ \mu_n = \frac{1}{n}\sum_{i=1}^n x_i $$ {#eq:myEquation}
 
 ### Tables
 
@@ -66,11 +71,10 @@ See [@tbl:table1] for results.
 | --- | --- |
 | baz | bim |
 
-*Table: This is Table {#tbl:table1}.*
+Table: This is table caption {#tbl:table1}
 
 ### References
 
 See e.g. [@kestlerGeneralizedVennDiagrams2005]
 
-
-
+https://lierdakil.github.io/pandoc-crossref/

@@ -27,5 +27,5 @@ fi
 echo "Using go $GO"
 "$GO" get
 "$GO" mod tidy
-"$GO" build -x "${build_opts[@]}" "${@}"
+"$GO" build  "${build_opts[@]}" "${@}"
 

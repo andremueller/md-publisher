@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/BurntSushi/toml"
@@ -65,6 +66,14 @@ func ReadConfig(context *cli.Context) Config {
 		log.Fatal(err)
 	}
 	return config
+}
+
+func getDefaultConfigFile() string {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatalf("Cannot find user home directory", err)
+	}
+	return filepath.Join(home, ".config/mdpublisher/mdpublisher.conf")
 }
 
 func publish(config Config) (*medium.Post, error) {
@@ -188,7 +197,7 @@ func main() {
 			Aliases: []string{"L"}},
 		&cli.StringFlag{Name: "config",
 			Usage:   "mdpublisher config file",
-			Value:   "~/.config/mdpublisher/mdpublisher.conf",
+			Value:   getDefaultConfigFile(),
 			Aliases: []string{"c"}},
 	}
 
@@ -206,6 +215,7 @@ func main() {
 		level := log.Level(context.Int("log-level"))
 		log.SetLevel(level)
 		log.Errorf("Setting log level to %v", level)
+
 		return nil
 	}
 	err := app.Run(os.Args)

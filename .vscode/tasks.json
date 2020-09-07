@@ -6,7 +6,12 @@
         {
             "label": "echo",
             "type": "shell",
-            "command": "go build md-publisher.go"
+            "command": "go build",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

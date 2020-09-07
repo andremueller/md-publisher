@@ -24,6 +24,10 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+var (
+	version string // version number (set by the build process see https://stackoverflow.com/questions/11354518/application-auto-build-versioning#11355611)
+)
+
 // Image ContentType
 //  ``image/jpeg``, ``image/png``, ``image/gif``, and ``image/tiff``.
 
@@ -174,18 +178,18 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "mdpublisher"
 	app.Usage = "Publishes an articles to medium.com"
-	app.Version = "0.1"
+	app.Version = version
 
 	// common flags
 	app.Flags = []cli.Flag{
-		&cli.IntFlag{Name: "log-level", 
-			Usage: "set logging level to (5 = debug, 4 = info, 3 = warn, 2 = error, 1 = fatal",
-			Value: 2,
+		&cli.IntFlag{Name: "log-level",
+			Usage:   "set logging level to (5 = debug, 4 = info, 3 = warn, 2 = error, 1 = fatal",
+			Value:   2,
 			Aliases: []string{"L"}},
-		&cli.StringFlag{Name: "config", 
-			Usage: "mdpublisher config file",
-			Value: "~/.config/mdpublisher/mdpublisher.conf",
-		}
+		&cli.StringFlag{Name: "config",
+			Usage:   "mdpublisher config file",
+			Value:   "~/.config/mdpublisher/mdpublisher.conf",
+			Aliases: []string{"c"}},
 	}
 
 	publishFlags := []cli.Flag{
@@ -221,6 +225,7 @@ func main() {
 			log.Fatalf("Cannot detect content type for image %s", k)
 		}
 		v.SetAttr("src", "https://"+k)
+		v.SetAttr("content", contentType) // todo replace that
 	}
 	fmt.Println(RenderDocument(doc))
 }

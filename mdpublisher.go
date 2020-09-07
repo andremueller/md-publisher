@@ -10,7 +10,8 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
+	"github.com/urfave/cli/v2"
 	"golang.org/x/net/html"
 
 	medium "github.com/Medium/medium-sdk-go"
@@ -22,8 +23,6 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 )
-
-var log = logrus.New()
 
 // Image ContentType
 //  ``image/jpeg``, ``image/png``, ``image/gif``, and ``image/tiff``.
@@ -50,9 +49,8 @@ type Config struct {
 	MediumAccessToken string
 }
 
-// Reads info from config file
-func ReadConfig() Config {
-	var configfile = flags.Configfile
+func ReadConfig(context *cli.Context) Config {
+	var configfile = context.String("config")
 	_, err := os.Stat(configfile)
 	if err != nil {
 		log.Fatal("Config file is missing: ", configfile)
@@ -62,7 +60,6 @@ func ReadConfig() Config {
 	if _, err := toml.DecodeFile(configfile, &config); err != nil {
 		log.Fatal(err)
 	}
-	//log.Print(config.Index)
 	return config
 }
 
@@ -172,7 +169,46 @@ func findImages(doc *goquery.Document) ImageList {
 }
 
 func main() {
-	log.Out = os.Stdout
+	// log.Out = os.Stdout
+	log.SetFormatter(&log.TextFormatter{})
+	app := cli.NewApp()
+	app.Name = "mdpublisher"
+	app.Usage = "Publishes an articles to medium.com"
+	app.Version = "0.1"
+
+	// common flags
+	app.Flags = []cli.Flag{
+		&cli.IntFlag{Name: "log-level", 
+			Usage: "set logging level to (5 = debug, 4 = info, 3 = warn, 2 = error, 1 = fatal",
+			Value: 2,
+			Aliases: []string{"L"}},
+		&cli.StringFlag{Name: "config", 
+			Usage: "mdpublisher config file",
+			Value: "~/.config/mdpublisher/mdpublisher.conf",
+		}
+	}
+
+	publishFlags := []cli.Flag{
+		&cli.BoolFlag{Name: "no-images", Usage: "Does not upload images."},
+	}
+	app.Commands = []*cli.Command{
+		{
+			Name:   "publish",
+			Usage:  "publishs the given article",
+			Flags:  publishFlags,
+			Action: publishCommand},
+	}
+	app.Before = func(context *cli.Context) error {
+		level := log.Level(context.Int("log-level"))
+		log.SetLevel(level)
+		log.Errorf("Setting log level to %v", level)
+		return nil
+	}
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	doc, err := parseHTML("./data/demo_article.html")
 	if err != nil {
 		log.Fatal("Cannot parse", err)
@@ -187,4 +223,14 @@ func main() {
 		v.SetAttr("src", "https://"+k)
 	}
 	fmt.Println(RenderDocument(doc))
+}
+
+func publishCommand(context *cli.Context) error {
+	if context.Args().Len() != 1 {
+		return fmt.Errorf("publish requires an input file")
+	}
+	inputFileName := context.Args().Get(0)
+	log.Info("Parsing input file %s", inputFileName)
+
+	return nil
 }

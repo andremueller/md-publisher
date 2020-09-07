@@ -10,6 +10,8 @@ require (
 	github.com/litao91/goldmark-mathjax v0.0.0-20191101121019-011def32b12f
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.6.0
+	github.com/spf13/cobra/cobra v0.0.0-20200826151851-02a0d2fbc9e6 // indirect
+	github.com/urfave/cli/v2 v2.2.0
 	github.com/yuin/goldmark v1.2.1
 	github.com/yuin/goldmark-meta v0.0.0-20191126180153-f0638e958b60
 	golang.org/x/net v0.0.0-20200202094626-16171245cfb2

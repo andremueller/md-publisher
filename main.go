@@ -79,7 +79,8 @@ func publishCommand(context *cli.Context) error {
 	}
 	inputFileName := context.Args().Get(0)
 	log.Infof("Parsing input file %s", inputFileName)
-	return publisher.PublishMedium(inputFileName, currentConfig)
+	_, err := publisher.PublishMedium(inputFileName, currentConfig)
+	return err
 }
 
 func updateConfig(context *cli.Context, config *config.Config) {

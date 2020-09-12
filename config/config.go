@@ -19,7 +19,7 @@ type Config struct {
 func GetDefaultConfigFile() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatalf("Cannot find user home directory", err)
+		log.Fatal("Cannot find user home directory", err)
 	}
 	return filepath.Join(home, ".config/md-publisher/md-publisher.conf")
 }

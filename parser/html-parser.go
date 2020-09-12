@@ -2,16 +2,11 @@ package parser
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 	"os"
 	"strings"
 
-	log "github.com/sirupsen/logrus"
-
-	"github.com/Medium/medium-sdk-go"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/andremueller/md-publisher/config"
 	"github.com/pkg/errors"
 	"golang.org/x/net/html"
 )
@@ -22,43 +17,6 @@ type GoquerySelections []*goquery.Selection
 // ImageList is a list of images mapping from a local file name to multiple
 // goquery.Selections.
 type ImageList map[string]GoquerySelections
-
-// Publish publishs the given article to medium as a draft.
-func Publish(config config.Config) (*medium.Post, error) {
-	client := medium.NewClientWithAccessToken(config.MediumAccessToken)
-	u, err := client.GetUser("")
-	if err != nil {
-		return nil, errors.Wrap(err, "Cannot get medium user")
-	}
-
-	log.Infof("User: %+v", u)
-
-	image, err := client.UploadImage(
-		medium.UploadOptions{
-			FilePath:    "data/figure1.png",
-			ContentType: "image/png",
-		},
-	)
-	if err != nil {
-		return nil, errors.Wrap(err, "Cannot upload images to medium")
-	}
-	log.Infof("Uploaded image: %+v", image)
-
-	p, err := client.CreatePost(medium.CreatePostOptions{
-		UserID:        u.ID,
-		Title:         "Demo Title 2",
-		Content:       fmt.Sprintf("<h1># Demo Title Welcome!\n![caption](%s)\n", image.URL),
-		ContentFormat: medium.ContentFormatMarkdown,
-		PublishStatus: medium.PublishStatusDraft,
-		Tags:          []string{"demo"},
-	})
-	if err != nil {
-		return nil, errors.Wrap(err, "Cannot create medium post")
-	}
-	log.Infof("Medium post URL: %s\n", p.URL)
-
-	return p, nil
-}
 
 // RenderNode renders the html.Node as a string
 func RenderNode(n *html.Node) string {
@@ -111,4 +69,20 @@ func FindImages(doc *goquery.Document) ImageList {
 	})
 
 	return images
+}
+
+// SplitList splits a "," separated attribute list into an array
+func SplitList(text string) []string {
+	v := strings.Split(text, ",")
+	result := make([]string, len(v))
+	for i, entry := range v {
+		result[i] = strings.TrimSpace(entry)
+	}
+	return result
+}
+
+// GetKeywords gets the keywords meta tag from the HTML DOM
+func GetKeywords(doc *goquery.Document) []string {
+	content := doc.Find("meta[name=keywords]").AttrOr("content", "")
+	return SplitList(content)
 }

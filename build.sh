@@ -29,3 +29,6 @@ echo "Using go $GO"
 "$GO" mod tidy
 "$GO" build  "${build_opts[@]}" "${@}"
 
+echo "-------------- Running unit tests -------------- "
+"$GO" clean -testcache ./...
+"$GO" test -v ./...

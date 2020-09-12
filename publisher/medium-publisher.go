@@ -11,9 +11,8 @@ import (
 	"github.com/andremueller/md-publisher/parser"
 )
 
-// Image ContentType
+// GetContentType returns the image content type
 //  ``image/jpeg``, ``image/png``, ``image/gif``, and ``image/tiff``.
-
 func GetContentType(fileName string) (string, error) {
 	f := strings.ToLower(fileName)
 	result := ""
@@ -32,20 +31,24 @@ func GetContentType(fileName string) (string, error) {
 	return "image/" + result, nil
 }
 
+// PublishMedium publishes the given HTML to medium.com
 func PublishMedium(inputFileName string, config config.Config) error {
 	doc, err := parser.ParseHTML(inputFileName)
 	if err != nil {
 		log.Fatal("Cannot parse", err)
 	}
 	images := parser.FindImages(doc)
-	for k, v := range images {
-		fmt.Printf("- %s\n", k)
-		contentType, err := GetContentType(k)
+	for src, locations := range images {
+		fmt.Printf("- %s\n", src)
+		contentType, err := GetContentType(src)
 		if err != nil {
-			return errors.Errorf("Cannot detect content type for image %s", k)
+			return errors.Errorf("Cannot detect content type for image %s", src)
 		}
-		v.SetAttr("src", "https://"+k)
-		v.SetAttr("content", contentType) // todo replace that
+		log.Infof("Mapping image %s in %d location(s)", src, len(locations))
+		for _, location := range locations {
+			location.SetAttr("src", "https://"+src)
+			location.SetAttr("content", contentType) // todo replace that
+		}
 	}
 	fmt.Println(parser.RenderDocument(doc))
 	return nil

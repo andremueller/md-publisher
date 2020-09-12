@@ -19,6 +19,7 @@ How to upload a demo article using the medium go api.
 
 Refer to Figure [@fig:euler]
 
+![This is my figure caption - duplicated figure.](figure1.png "This is the link hover text."){#fig:euler2}
 # Heading 1
 
 ## Heading 2

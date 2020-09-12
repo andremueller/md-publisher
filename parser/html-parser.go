@@ -16,8 +16,14 @@ import (
 	"golang.org/x/net/html"
 )
 
-type ImageList map[string]*goquery.Selection
+// GoquerySelections is a list of DOM tree selections.
+type GoquerySelections []*goquery.Selection
 
+// ImageList is a list of images mapping from a local file name to multiple
+// goquery.Selections.
+type ImageList map[string]GoquerySelections
+
+// Publish publishs the given article to medium as a draft.
 func Publish(config config.Config) (*medium.Post, error) {
 	client := medium.NewClientWithAccessToken(config.MediumAccessToken)
 	u, err := client.GetUser("")
@@ -54,7 +60,7 @@ func Publish(config config.Config) (*medium.Post, error) {
 	return p, nil
 }
 
-
+// RenderNode renders the html.Node as a string
 func RenderNode(n *html.Node) string {
 	var buf bytes.Buffer
 	w := io.Writer(&buf)
@@ -62,10 +68,12 @@ func RenderNode(n *html.Node) string {
 	return buf.String()
 }
 
+// RenderDocument renders a goquery.Document as string.
 func RenderDocument(doc *goquery.Document) string {
 	return RenderNode(doc.Get(0))
 }
 
+// ParseHTML parses the given HTML file and returns on success a goquery Document.
 func ParseHTML(fileName string) (*goquery.Document, error) {
 	file, err := os.Open(fileName)
 	if err != nil {
@@ -81,16 +89,24 @@ func ParseHTML(fileName string) (*goquery.Document, error) {
 	return goquery.NewDocumentFromNode(html), nil
 }
 
+// IsLocalFile returns true if the given img src refers to a local file.
 func IsLocalFile(src string) bool {
 	return !strings.HasPrefix(src, "http")
 }
 
+// FindImages returns an ImageList of all local images within a DOM tree.
+// The ImageList maps the "src" attribute to a list of goquery.Selections
+// which can be used for modifying the DOM tree after uploading the image.
 func FindImages(doc *goquery.Document) ImageList {
 	images := make(ImageList)
 	doc.Find("img").Each(func(i int, s *goquery.Selection) {
 		src, exists := s.Attr("src")
 		if exists && IsLocalFile(src) {
-			images[src] = s
+			result, keyExists := images[src]
+			if !keyExists {
+				result = make(GoquerySelections, 0)
+			}
+			images[src] = append(result, s)
 		}
 	})
 

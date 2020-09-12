@@ -28,7 +28,7 @@ func main() {
 	app.Flags = []cli.Flag{
 		&cli.IntFlag{Name: "log-level",
 			Usage:   "set logging level to (5 = debug, 4 = info, 3 = warn, 2 = error, 1 = fatal",
-			Value:   2,
+			Value:   5,
 			Aliases: []string{"L"}},
 		&cli.StringFlag{Name: "config",
 			Usage:   "md-publisher config file",
@@ -71,7 +71,7 @@ func publishCommand(context *cli.Context) error {
 		return fmt.Errorf("publish requires an input file")
 	}
 	inputFileName := context.Args().Get(0)
-	log.Info("Parsing input file %s", inputFileName)
+	log.Infof("Parsing input file %s", inputFileName)
 	return publisher.PublishMedium(inputFileName, currentConfig)
 }
 

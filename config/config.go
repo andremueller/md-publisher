@@ -15,6 +15,7 @@ type Config struct {
 	MediumAccessToken string // access token for medium
 }
 
+// GetDefaultConfigFile returns the path to the default md-publisher.conf file
 func GetDefaultConfigFile() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -23,6 +24,7 @@ func GetDefaultConfigFile() string {
 	return filepath.Join(home, ".config/md-publisher/md-publisher.conf")
 }
 
+// ReadConfig reads the configuration from a TOML (a ini like file) file.
 func ReadConfig(configFile string, config *Config) error {
 	_, err := os.Stat(configFile)
 	if err != nil {

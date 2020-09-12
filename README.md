@@ -83,3 +83,18 @@ MIT License
 
 **The project is currently in an experimental state.**
 So please don't blame me if something is not working. However, you are welcome to contribute to this project.
+
+# Features
+
+- Uploading local images in `<img>` tags
+- Setting the title to `head title`
+- Settings the medium tags to `meta keywords`
+
+For an example file see (data/demo_article.html)[data/demo_article.html]
+
+```html
+<head>
+   <title>My title</title>
+   <meta name="keywords" content="my tag 1, my tag 2" />
+</head>
+```

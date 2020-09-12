@@ -15,6 +15,11 @@ var (
 	version string // version number (set by the build process see https://stackoverflow.com/questions/11354518/application-auto-build-versioning#11355611)
 )
 
+const (
+	configNoImages          = "no-images"
+	configMediumAccessToken = "medium-token"
+)
+
 var currentConfig config.Config
 
 func main() {
@@ -37,14 +42,16 @@ func main() {
 	}
 
 	publishFlags := []cli.Flag{
-		&cli.BoolFlag{Name: "no-images", Usage: "Does not upload images."},
-		&cli.StringFlag{Name: "medium-token", Usage: "Medium.com access token"},
+		&cli.BoolFlag{Name: configNoImages,
+			Usage: "Do not upload images"},
+		&cli.StringFlag{Name: configMediumAccessToken,
+			Usage: "Medium.com access token - alternative to the configuration file"},
 	}
 
 	app.Commands = []*cli.Command{
 		{
 			Name:   "publish",
-			Usage:  "publishs the given article",
+			Usage:  "publish the given article",
 			Flags:  publishFlags,
 			Action: publishCommand},
 	}
@@ -76,6 +83,10 @@ func publishCommand(context *cli.Context) error {
 }
 
 func updateConfig(context *cli.Context, config *config.Config) {
-	config.NoImages = context.Bool("no-images")
-	config.MediumAccessToken = context.String("medium-token")
+	if context.IsSet(configNoImages) {
+		config.NoImages = context.Bool(configNoImages)
+	}
+	if context.IsSet(configMediumAccessToken) {
+		config.MediumAccessToken = context.String(configMediumAccessToken)
+	}
 }

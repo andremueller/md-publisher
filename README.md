@@ -32,6 +32,37 @@ After that you should be able to upload a local HTML file with
 md-publisher publish my_file.html
 ```
 
+For further options call
+```bash
+./md-publisher help
+
+NAME:
+   md-publisher - Publishes an articles to medium.com
+
+USAGE:
+   md-publisher [global options] command [command options] [arguments...]
+
+COMMANDS:
+   publish  publish the given article
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --log-level value, -L value  set logging level to (5 = debug, 4 = info, 3 = warn, 2 = error, 1 = fatal (default: 5)
+   --config value, -c value     md-publisher config file (default: "/Users/muellera/.config/md-publisher/md-publisher.conf")
+   --help, -h                   show help (default: false)
+```
+
+```bash
+NAME:
+   md-publisher publish - publish the given article
+
+USAGE:
+   md-publisher publish [command options] [arguments...]
+
+OPTIONS:
+   --no-images           Do not upload images (default: false)
+```
+
 Then you should find the newly article within your drafts including local images.
 
 # Dependencies
@@ -44,9 +75,7 @@ Then you should find the newly article within your drafts including local images
 | github.com/PuerkitoBio/goquery      | BSD 3 Clause License       |
 | github.com/yuin/goldmark            | MIT License                |
 | github.com/litao91/goldmark-mathjax | MIT License                |
-|                                     |                            |
-|                                     |                            |
-|                                     |                            |
+
 
 # License
 

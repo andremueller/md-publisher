@@ -17,3 +17,15 @@ func TestGetKeywords(t *testing.T) {
 		t.Error("Keywords not correctly detected")
 	}
 }
+
+func TestGetTitle(t *testing.T) {
+	doc, err := ParseHTML("../data/demo_article.html")
+	if err != nil {
+		t.Errorf("Failed parsing of html")
+	}
+	title := GetTitle(doc, "default")
+	expected := "A Demo Article Title"
+	if !cmp.Equal(title, expected) {
+		t.Errorf("Title not correct '%s' <> '%s'", title, expected)
+	}
+}

@@ -86,3 +86,13 @@ func GetKeywords(doc *goquery.Document) []string {
 	content := doc.Find("meta[name=keywords]").AttrOr("content", "")
 	return SplitList(content)
 }
+
+// GetTitle returns the head.title or defaultTitle if not found.
+func GetTitle(doc *goquery.Document, defaultTitle string) string {
+	t := doc.Find("head title")
+	if t.Nodes == nil {
+		return defaultTitle
+	}
+	return t.Text()
+	// return t.AttrOr("content", defaultTitle)
+}

@@ -64,7 +64,7 @@ func PublishMedium(inputFileName string, config config.Config) (*medium.Post, er
 
 	post, err := client.CreatePost(medium.CreatePostOptions{
 		UserID:        user.ID,
-		Title:         doc.AttrOr("title", "No Title"),
+		Title:         parser.GetTitle(doc, "Unknown Title"),
 		Content:       html,
 		ContentFormat: medium.ContentFormatHTML,
 		PublishStatus: medium.PublishStatusDraft,

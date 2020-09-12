@@ -88,13 +88,11 @@ MIT License
 **The project is currently in an experimental state.**
 So please don't blame me if something is not working. However, you are welcome to contribute to this project.
 
-# Features
+# HTML Features
 
 - Uploading local images in `<img>` tags
 - Setting the title to `head title`
 - Settings the medium tags to `meta keywords`
-
-For an example file see (data/demo_article.html)[data/demo_article.html]
 
 ```html
 <head>
@@ -102,3 +100,37 @@ For an example file see (data/demo_article.html)[data/demo_article.html]
    <meta name="keywords" content="my tag 1, my tag 2" />
 </head>
 ```
+
+For an example file see [data/demo_article.html](data/demo_article.html).
+
+# Markdown
+
+It is recommended to use https://pandoc.org for transforming Markdown files to
+html which could then be uploaded with `md-publisher`.
+
+Important is especially the YAML meta header which allows the specify title, tags (called keywords for
+compatibility), BibTeX reference file, and many more attributes.
+
+See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block for all possible meta tags.
+
+For an example file see [data/demo_article.md](data/demo_article.md).
+
+A script for converting the `data/demo_article.md` to `data/demo_article.html` is here:
+[pandoc.sh](pandoc.sh)
+
+For the `pandoc.sh` script the following tools must be in the search path of your shell
+- pandoc
+- pandoc-crossref
+- pandoc-citeproc
+
+Hereto, please look the installation instructions on https://pandoc.org.
+
+Current working features:
+
+- bibliography
+- images
+- tables
+- equations
+- references to figures, equations, tables
+
+If you like you can use my [pandoc Docker containe](https://github.com/andremueller/pandoc-docker)r for this step as well.

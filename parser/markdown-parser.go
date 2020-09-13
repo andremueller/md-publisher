@@ -7,7 +7,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	mathjax "github.com/litao91/goldmark-mathjax"
+	//	mathjax "github.com/litao91/goldmark-mathjax"
 	"github.com/yuin/goldmark"
 	meta "github.com/yuin/goldmark-meta"
 	"github.com/yuin/goldmark/extension"
@@ -22,7 +22,7 @@ func parseMarkdown() {
 	md := goldmark.New(
 		goldmark.WithExtensions(
 			extension.GFM,
-			mathjax.MathJax,
+			//			mathjax.MathJax,
 			meta.Meta,
 		),
 	)

@@ -3,24 +3,21 @@
 # Requires pandoc, pandoc-crossref, and pandoc-citeproc
 # # See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
 set -e
-input="$1"
-output="$2"
-format="$3"
 opts=()
 opts+=(--standalone)
 opts+=(--resource-path "$PWD")
 opts+=(--filter pandoc-crossref)
 opts+=(--filter pandoc-citeproc)
 
-## Add here your citation style
-opts+=(--csl "$HOME/.csl/science.csl")
+## Add here your global citation style (if you like)
+#opts+=(--csl "$HOME/.csl/science.csl")
 
 ## Add here your global BibTex library if you like
-#opts+=(--bibliography "$HOME/.local/share/pandoc/Bibliography.bib")
+#opts+=(--bibliography "$HOME/Documents/BibTex/Zotero_BBT.bib")
+
 opts+=(--from markdown+yaml_metadata_block+implicit_figures+fenced_divs+citations+table_captions)
-opts+=(--to "$format")
+opts+=(--to html5)
 opts+=(--webtex)
-opts+=(--output "$output")
-opts+=("$input")
-echo "Running pandoc with ${opts[*]}"
+opts+=("${@}")
 pandoc "${opts[@]}"
+

@@ -10,6 +10,8 @@ using pandoc Markdown) files to https://medium.com.
 Local images are first uploaded to medium and then the article is published as
 draft.
 
+# Installation
+
 Install the `md-publisher` tool with
 ```bash
 go get github.com/andremueller/md-publisher
@@ -29,6 +31,10 @@ Create a TOML configuration file in `$HOME/.config/md-publisher/md-publisher.con
 # page https://medium.com/me/settings and enter it here
 MediumAccessToken="YOUR_ACCESS_TOKEN"
 ```
+
+# Running
+
+When using a 
 
 After that you should be able to upload a local HTML file with
 
@@ -101,7 +107,7 @@ So please don't blame me if something is not working. However, you are welcome t
 </head>
 ```
 
-For an example file see [data/demo_article.html](data/demo_article.html).
+For an example file see [example/demo_article.html](example/demo_article.html).
 
 # Markdown
 

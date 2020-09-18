@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetKeywords(t *testing.T) {
-	doc, err := ParseHTML("../data/demo_article.html")
+	doc, err := ParseHTML("../example/demo_article.html")
 	if err != nil {
 		t.Errorf("Failed parsing of html")
 	}
@@ -19,7 +19,7 @@ func TestGetKeywords(t *testing.T) {
 }
 
 func TestGetTitle(t *testing.T) {
-	doc, err := ParseHTML("../data/demo_article.html")
+	doc, err := ParseHTML("../example/demo_article.html")
 	if err != nil {
 		t.Errorf("Failed parsing of html")
 	}

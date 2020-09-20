@@ -6,7 +6,6 @@ import (
 
 	"github.com/andremueller/md-publisher/config"
 	"github.com/andremueller/md-publisher/publisher"
-	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 )
@@ -43,9 +42,11 @@ func main() {
 
 	publishFlags := []cli.Flag{
 		&cli.BoolFlag{Name: configNoImages,
-			Usage: "Do not upload images"},
+			Usage: "Do not upload images",
+			Value: false},
 		&cli.StringFlag{Name: configMediumAccessToken,
-			Usage: "Medium.com access token - alternative to the configuration file"},
+			Usage: "Medium.com access token - alternative to the configuration file",
+			Value: ""},
 	}
 
 	app.Commands = []*cli.Command{
@@ -58,13 +59,11 @@ func main() {
 	app.Before = func(context *cli.Context) error {
 		level := log.Level(context.Int("log-level"))
 		log.SetLevel(level)
-		log.Errorf("Setting log level to %v", level)
-		err := config.ReadConfig(context.String("config"), &currentConfig)
+		configFile := context.String("config")
+		err := config.ReadConfig(configFile, &currentConfig)
 		if err != nil {
-			return errors.Wrapf(err, "Cannot read configuration file")
+			log.Errorf("Cannot read configuration file %s", configFile)
 		}
-		// overwrite with command line arguments
-		updateConfig(context, &currentConfig)
 		return nil
 	}
 	err := app.Run(os.Args)
@@ -74,6 +73,9 @@ func main() {
 }
 
 func publishCommand(context *cli.Context) error {
+	// overwrite configuration parameters with command line arguments
+	updateConfig(context, &currentConfig)
+
 	if context.Args().Len() != 1 {
 		return fmt.Errorf("publish requires an input file")
 	}

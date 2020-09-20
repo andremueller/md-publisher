@@ -37,6 +37,10 @@ func DetectContentType(fileName string) (string, error) {
 
 // PublishMedium publishes the given HTML to medium.com
 func PublishMedium(inputFileName string, config config.Config) (*medium.Post, error) {
+	if config.MediumAccessToken == "" {
+		return nil, fmt.Errorf("Medium access token is empty. Specify it on the command line with --medium-token or put it in the config file")
+	}
+
 	doc, err := parser.ParseHTML(inputFileName)
 	if err != nil {
 		return nil, errors.Wrapf(err, "Cannot parse HTML file %s", inputFileName)

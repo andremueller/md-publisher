@@ -10,14 +10,13 @@ opts+=(--filter pandoc-crossref)
 opts+=(--filter pandoc-citeproc)
 
 ## Add here your global citation style (if you like)
-#opts+=(--csl "$HOME/.csl/science.csl")
+opts+=(--csl "$HOME/.csl/styles-distribution/science.csl")
 
 ## Add here your global BibTex library if you like
-#opts+=(--bibliography "$HOME/Documents/BibTex/Zotero_BBT.bib")
+opts+=(--bibliography "$HOME/Documents/BibTex/Zotero_BBT.bib")
 
 opts+=(--from markdown+yaml_metadata_block+implicit_figures+fenced_divs+citations+table_captions)
 opts+=(--to html5)
 opts+=(--webtex)
 opts+=("${@}")
 pandoc "${opts[@]}"
-

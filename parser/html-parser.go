@@ -3,11 +3,13 @@ package parser
 import (
 	"bytes"
 	"io"
+	"net/url"
 	"os"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/pkg/errors"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/net/html"
 )
 
@@ -60,6 +62,10 @@ func FindImages(doc *goquery.Document) ImageList {
 	doc.Find("img").Each(func(i int, s *goquery.Selection) {
 		src, exists := s.Attr("src")
 		if exists && IsLocalFile(src) {
+			src, err := url.QueryUnescape(src)
+			if err != nil {
+				logrus.Errorf("Cannot decode image path %s", src)
+			}
 			result, keyExists := images[src]
 			if !keyExists {
 				result = make(GoquerySelections, 0)

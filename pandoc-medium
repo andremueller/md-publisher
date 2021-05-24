@@ -1,22 +1,27 @@
 #!/usr/bin/env bash
 # Transforms Markdown format to html for use with md-publisher.
 # Requires pandoc, pandoc-crossref, and pandoc-citeproc
-# # See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
+# You could even use this for the macOS Marked 2 App
+# See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
 set -e
+
 opts=()
 opts+=(--standalone)
 opts+=(--resource-path "$PWD")
 opts+=(--filter pandoc-crossref)
-opts+=(--filter pandoc-citeproc)
+opts+=(--citeproc)
 
 ## Add here your global citation style (if you like)
 opts+=(--csl "$HOME/.csl/styles-distribution/science.csl")
 
-## Add here your global BibTex library if you like
-opts+=(--bibliography "$HOME/Documents/BibTex/Zotero_BBT.bib")
-
+## Add here your global BibTex library.
+# I use Zotero with the BetterBibTex plugin for automatically exporting the current
+# bibliography to Nextcloud (you could use Dropbox or any other synchronization as well). 
+opts+=(--bibliography "$HOME/Nextcloud/Notes/Library.bib")
 opts+=(--from markdown+yaml_metadata_block+implicit_figures+fenced_divs+citations+table_captions)
 opts+=(--to html5)
+
+## Formula support
 opts+=(--webtex)
 opts+=("${@}")
 pandoc "${opts[@]}"

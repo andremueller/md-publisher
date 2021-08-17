@@ -79,6 +79,9 @@ func publishCommand(context *cli.Context) error {
 	if context.Args().Len() != 1 {
 		return fmt.Errorf("publish requires an input file")
 	}
+	if !checkToken(currentConfig.MediumAccessToken) {
+		return fmt.Errorf("MediumAccessToken missing! Specify in $HOME/.config/md-publisher/md-publisher.conf")
+	}
 	inputFileName := context.Args().Get(0)
 	log.Infof("Parsing input file %s", inputFileName)
 	_, err := publisher.PublishMedium(inputFileName, currentConfig)
@@ -92,4 +95,8 @@ func updateConfig(context *cli.Context, config *config.Config) {
 	if context.IsSet(configMediumAccessToken) {
 		config.MediumAccessToken = context.String(configMediumAccessToken)
 	}
+}
+
+func checkToken(token string) bool {
+	return len(token) > 10
 }

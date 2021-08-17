@@ -10,9 +10,10 @@ using pandoc Markdown) files to https://medium.com.
 Local images are first uploaded to medium and then the article is published as
 draft.
 
-# Installation
+## Installation
 
 Install the `md-publisher` tool with
+
 ```bash
 go get github.com/andremueller/md-publisher
 ```
@@ -20,21 +21,23 @@ go get github.com/andremueller/md-publisher
 For using the `md-publisher` tool a integration token is required. Hereto you need an medium.com account and must have published an article. Then you can simply create a token on your settings page https://medium.com/me/settings.
 Create a TOML configuration file in `$HOME/.config/md-publisher/md-publisher.conf` with the following content:
 
-```TOML
+```toml
 # md-publisher.conf configuration file shall be found in
 # $HOME/.config/md-publisher/md-publisher.conf
 
-[medium]
 # Settings for medium.com
-
 # Create an integration token in your medium.com account on your settings
 # page https://medium.com/me/settings and enter it here
 MediumAccessToken="YOUR_ACCESS_TOKEN"
+
+# Set this true if you never want to upload your images.
+NoImages="false"
+
 ```
 
-# Running
+## Running
 
-When using a 
+When using markdown files you could use pandoc for translating that into html (see examples/run.sh).
 
 After that you should be able to upload a local HTML file with
 
@@ -43,6 +46,7 @@ md-publisher publish my_file.html
 ```
 
 For further options call
+
 ```bash
 ./md-publisher help
 
@@ -75,7 +79,7 @@ OPTIONS:
 
 Then you should find the newly article within your drafts including local images.
 
-# Dependencies
+## Dependencies
 
 | Dependency                          | License                    |
 | ----------------------------------- | -------------------------- |
@@ -86,15 +90,14 @@ Then you should find the newly article within your drafts including local images
 | github.com/yuin/goldmark            | MIT License                |
 | github.com/litao91/goldmark-mathjax | MIT License                |
 
-
-# License
+## License
 
 MIT License
 
 **The project is currently in an experimental state.**
 So please don't blame me if something is not working. However, you are welcome to contribute to this project.
 
-# HTML Features
+## HTML Features
 
 - Uploading local images in `<img>` tags
 - Setting the title to `head title`
@@ -109,7 +112,7 @@ So please don't blame me if something is not working. However, you are welcome t
 
 For an example file see [example/demo_article.html](example/demo_article.html).
 
-# Markdown
+## Markdown
 
 It is recommended to use https://pandoc.org for transforming Markdown files to
 html which could then be uploaded with `md-publisher`.
@@ -125,11 +128,12 @@ A script for converting the `data/demo_article.md` to `data/demo_article.html` i
 [pandoc.sh](pandoc.sh)
 
 For the `pandoc.sh` script the following tools must be in the search path of your shell
+
 - pandoc
 - pandoc-crossref
 - pandoc-citeproc
 
-Hereto, please look the installation instructions on https://pandoc.org.
+Hereto, please look the installation instructions on <https://pandoc.org>.
 
 Current working features:
 
@@ -140,3 +144,7 @@ Current working features:
 - references to figures, equations, tables
 
 If you like you can use my [pandoc Docker containe](https://github.com/andremueller/pandoc-docker)r for this step as well.
+
+## Known Issues
+
+- Nested lists do not work. However, medium.com seems to be the probleme here.

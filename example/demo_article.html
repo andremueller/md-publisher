@@ -23,7 +23,7 @@
       padding-top: 50px;
       padding-bottom: 50px;
       hyphens: auto;
-      word-wrap: break-word;
+      overflow-wrap: break-word;
       text-rendering: optimizeLegibility;
       font-kerning: normal;
     }
@@ -94,6 +94,7 @@
     pre code {
       padding: 0;
       overflow: visible;
+      overflow-wrap: normal;
     }
     .sourceCode {
      background-color: transparent;
@@ -256,6 +257,19 @@
 <ul>
 <li>First item</li>
 <li>Second item</li>
+</ul>
+<h4 id="nested-lists">Nested Lists</h4>
+<ul>
+<li>First item
+<ul>
+<li>First subitem</li>
+<li>Second subitem</li>
+</ul></li>
+<li>Second item
+<ul>
+<li>First subitem</li>
+<li>Second subitem</li>
+</ul></li>
 </ul>
 <h4 id="numbered-list">Numbered List</h4>
 <ol type="1">

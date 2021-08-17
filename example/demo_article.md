@@ -36,6 +36,15 @@ Refer to Figure [@fig:euler]
 - First item
 - Second item
 
+#### Nested Lists
+
+- First item
+  - First subitem
+  - Second subitem
+- Second item
+  - First subitem
+  - Second subitem
+
 #### Numbered List
 
 1. First numbered item

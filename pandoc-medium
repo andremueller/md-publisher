@@ -5,6 +5,12 @@
 # See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
 set -e
 
+pdf="no"
+if [[ "${1:--html}" == "--pdf" ]] ; then
+    shift
+    pdf="yes"
+fi
+
 opts=()
 opts+=(--standalone)
 opts+=(--resource-path "$PWD")
@@ -12,16 +18,28 @@ opts+=(--filter pandoc-crossref)
 opts+=(--citeproc)
 
 ## Add here your global citation style (if you like)
-opts+=(--csl "$HOME/.csl/styles-distribution/science.csl")
+# CSL=chicago-author-date
+# CSL=journal-of-the-royal-statistical-society
+CSL=ieee
+opts+=(--csl "$HOME/.csl/styles-distribution/${CSL}.csl")
 
 ## Add here your global BibTex library.
 # I use Zotero with the BetterBibTex plugin for automatically exporting the current
 # bibliography to Nextcloud (you could use Dropbox or any other synchronization as well). 
 opts+=(--bibliography "$HOME/Nextcloud/Notes/Library.bib")
-opts+=(--from markdown+yaml_metadata_block+implicit_figures+fenced_divs+citations+table_captions)
-opts+=(--to html5)
 
-## Formula support
-opts+=(--webtex)
-opts+=("${@}")
-pandoc "${opts[@]}"
+## for html
+opts_html+=(--from markdown+yaml_metadata_block+implicit_figures+fenced_divs+citations+table_captions)
+opts_html+=(--to html5)
+opts_html+=(--webtex)
+
+## for pdf
+opts_pdf+=(--from markdown+tex_math_single_backslash+tex_math_dollars+raw_tex)
+opts_pdf+=(--to=latex)
+opts_pdf+=(--pdf-engine=xelatex)
+
+if [[ "$pdf" == "yes" ]] ; then
+    pandoc "${opts[@]}" "${opts_pdf[@]}" "${@}"    
+else
+    pandoc "${opts[@]}" "${opts_html[@]}" "${@}"
+fi

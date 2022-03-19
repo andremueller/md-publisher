@@ -13,7 +13,7 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.3.0 // indirect
 	github.com/urfave/cli/v2 v2.3.0
-	github.com/yuin/goldmark v1.4.6
+	github.com/yuin/goldmark v1.4.10
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8
 	golang.org/x/sys v0.0.0-20210816183151-1e6c022a8912 // indirect

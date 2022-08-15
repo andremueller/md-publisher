@@ -3,7 +3,7 @@ module github.com/andremueller/md-publisher
 go 1.14
 
 require (
-	github.com/BurntSushi/toml v1.1.0
+	github.com/BurntSushi/toml v1.2.0
 	github.com/Medium/medium-sdk-go v0.0.0-20171230201202-4daca056cf6a
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/google/go-cmp v0.5.8

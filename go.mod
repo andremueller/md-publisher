@@ -10,7 +10,7 @@ require (
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.0
-	github.com/urfave/cli/v2 v2.11.2
+	github.com/urfave/cli/v2 v2.17.1
 	github.com/yuin/goldmark v1.4.13
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/net v0.0.0-20210916014120-12bc252f5db8

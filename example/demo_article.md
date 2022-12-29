@@ -59,11 +59,25 @@ graph TD
 
 ### Code
 
+#### bash
+
 ```bash
 x="a"
 for u in "${*}" ; do
    echo "Arg: $u"
 done
+```
+
+#### go
+
+```go
+package main
+
+import ("fmt")
+
+func main() {
+   fmt.Printf("Hello world!")
+}
 ```
 
 ### Formula

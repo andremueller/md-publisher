@@ -32,6 +32,9 @@
         font-size: 0.9em;
         padding: 1em;
       }
+      h1 {
+        font-size: 1.8em;
+      }
     }
     @media print {
       body {
@@ -81,6 +84,17 @@
       padding-left: 1em;
       border-left: 2px solid #e6e6e6;
       color: #606060;
+    }
+    div.abstract {
+      margin: 2em 2em 2em 2em;
+      text-align: left;
+      font-size: 85%;
+    }
+    div.abstract-title {
+      font-weight: bold;
+      text-align: center;
+      padding: 0;
+      margin-bottom: 0.5em;
     }
     code {
       font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
@@ -136,15 +150,26 @@
     #TOC li {
       list-style: none;
     }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
     #TOC a:not(:hover) {
       text-decoration: none;
     }
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -183,7 +208,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -196,7 +221,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -239,14 +264,23 @@
 <p class="subtitle">How to upload…</p>
 <p class="author">Andre Mueller</p>
 <p class="date">2020-09-06T09:20:48+0200</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>Great abstract describing the content.</p>
+</div>
 </header>
 <h1 id="a-demo-article">A Demo Article</h1>
 <p>How to upload a demo article using the medium go api.</p>
 <figure>
-<img src="figure1.png" title="This is the link hover text." id="fig:euler" alt="Figure 1: This is my figure caption." /><figcaption aria-hidden="true">Figure 1: This is my figure caption.</figcaption>
+<img src="figure1.png" title="This is the link hover text."
+id="fig:euler" alt="Figure 1: This is my figure caption." />
+<figcaption aria-hidden="true">Figure 1: This is my figure
+caption.</figcaption>
 </figure>
 <p>Refer to Figure fig. 1</p>
-<p><img src="figure1.png" title="This is the link hover text." id="fig:euler2" alt="This is my figure caption - duplicated figure." /> # Heading 1</p>
+<p><img src="figure1.png" title="This is the link hover text."
+id="fig:euler2" alt="This is my figure caption - duplicated figure." />
+# Heading 1</p>
 <h2 id="heading-2">Heading 2</h2>
 <p><strong>bold font</strong></p>
 <p><em>emphasis</em></p>
@@ -280,13 +314,28 @@
 <pre class="mermaid"><code>graph TD
    x --&gt; y</code></pre>
 <h3 id="code">Code</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">x</span><span class="op">=</span><span class="st">&quot;a&quot;</span></span>
+<h4 id="bash">bash</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">x</span><span class="op">=</span><span class="st">&quot;a&quot;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> <span class="st">&quot;</span><span class="va">${*}</span><span class="st">&quot;</span> <span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">echo</span> <span class="st">&quot;Arg: </span><span class="va">$u</span><span class="st">&quot;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<h4 id="go">go</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span> main</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span><span class="st">&quot;fmt&quot;</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   fmt<span class="op">.</span>Printf<span class="op">(</span><span class="st">&quot;Hello world!&quot;</span><span class="op">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <h3 id="formula">Formula</h3>
 <p>The Equation eq. 1 shows clearly …</p>
-<p>Inline math <span id="eq:myEquation"><img style="vertical-align:middle" src="https://latex.codecogs.com/png.latex?%5Cdisplaystyle%20%20%5Cmu_n%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi%3D1%7D%5En%20x_i%20%5Cqquad%281%29" alt=" \mu_n = \frac{1}{n}\sum_{i=1}^n x_i \qquad(1)" title=" \mu_n = \frac{1}{n}\sum_{i=1}^n x_i \qquad(1)" class="math display" /></span></p>
+<p>Inline math <span id="eq:myEquation"><img
+style="vertical-align:middle"
+src="https://latex.codecogs.com/png.latex?%5Cdisplaystyle%20%5Cmu_n%20%3D%20%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7Bi%3D1%7D%5En%20x_i%20%5Cqquad%7B%281%29%7D"
+alt="\mu_n = \frac{1}{n}\sum_{i=1}^n x_i \qquad{(1)}"
+title="\mu_n = \frac{1}{n}\sum_{i=1}^n x_i \qquad{(1)}"
+class="math display" /></span></p>
 <h3 id="tables">Tables</h3>
 <p>See tbl. 1 for results.</p>
 <div id="tbl:table1">
@@ -307,12 +356,18 @@
 </table>
 </div>
 <h3 id="references">References</h3>
-<p>See e.g. <span class="citation" data-cites="kestlerGeneralizedVennDiagrams2005">(<em>1</em>)</span></p>
+<p>See e.g. <span class="citation"
+data-cites="kestlerGeneralizedVennDiagrams2005">(<em>1</em>)</span></p>
 <p>https://lierdakil.github.io/pandoc-crossref/</p>
 <h1 class="unnumbered" id="bibliography">My References</h1>
 <div id="refs" class="references csl-bib-body" role="doc-bibliography">
-<div id="ref-kestlerGeneralizedVennDiagrams2005" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">H. A. Kestler, A. Müller, T. M. Gress, M. Buchholz, Generalized <span>Venn</span> diagrams: A new method of visualizing complex genetic set relations. <em>Bioinformatics</em>. <strong>21</strong>, 1592–1595 (2005).</div>
+<div id="ref-kestlerGeneralizedVennDiagrams2005" class="csl-entry"
+role="doc-biblioentry">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">H.
+A. Kestler, A. Müller, T. M. Gress, M. Buchholz, Generalized
+<span>Venn</span> diagrams: A new method of visualizing complex genetic
+set relations. <em>Bioinformatics</em>. <strong>21</strong>, 1592–1595
+(2005).</div>
 </div>
 </div>
 </body>

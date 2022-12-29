@@ -15,12 +15,11 @@ build_opts=()
 VERSION="$(git describe --tags --long 2> /dev/null || echo "")"
 # returns something like v1.2-3-g177b3eb
 [[ -n "$VERSION" ]] && build_opts+=(-ldflags "-X main.version=$VERSION")
-echo "${build_opts[*]}"
 GO="go"
 "$GO" clean
 "$GO" get -u
 "$GO" mod tidy
-"$GO" build  "${build_opts[@]}" "${@}"
+"$GO" build  "${build_opts[@]}"
 
 echo "-------------- Running unit tests -------------- "
 "$GO" clean -testcache ./...

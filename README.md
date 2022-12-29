@@ -15,10 +15,12 @@ draft.
 Install the `md-publisher` tool with
 
 ```bash
-go get github.com/andremueller/md-publisher
+go install github.com/andremueller/md-publisher@latest
 ```
 
-For using the `md-publisher` tool a integration token is required. Hereto you need an medium.com account and must have published an article. Then you can simply create a token on your settings page https://medium.com/me/settings.
+Go will install the binary to the bin folder in your Go directory (usually something like `$HOME/go/bin`).
+
+`md-publisher` requires tool an integration token. Hereto, you need a medium.com account and must have published at least one article. Then you can simply create a token on your settings page <https://medium.com/me/settings>.
 Create a TOML configuration file in `$HOME/.config/md-publisher/md-publisher.conf` with the following content:
 
 ```toml

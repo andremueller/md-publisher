@@ -1,3 +1,5 @@
+[![Go](https://github.com/andremueller/md-publisher/actions/workflows/go.yml/badge.svg)](https://github.com/andremueller/md-publisher/actions/workflows/go.yml)
+
 # md-publisher
 
 ![md-publisher Logo](logo/md-publisher.png)

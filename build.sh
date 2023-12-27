@@ -2,7 +2,6 @@
 set -o errexit
 set -o nounset
 
-SCRIPT_PATH="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P)"
 function die() {
     echo "ERROR $? IN ${BASH_SOURCE[0]} AT LINE ${BASH_LINENO[0]}"
     exit 1
@@ -22,5 +21,4 @@ GO="go"
 "$GO" build  "${build_opts[@]}"
 
 echo "-------------- Running unit tests -------------- "
-"$GO" clean -testcache ./...
 "$GO" test -v ./...

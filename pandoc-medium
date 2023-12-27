@@ -5,6 +5,8 @@
 # See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block
 set -e
 
+[[ -f "$HOME/.bash_profile" ]] && source "$HOME/.bash_profile"
+
 opts=()
 opts+=(--standalone)
 opts+=(--resource-path "$PWD")

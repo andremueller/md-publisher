@@ -9,8 +9,7 @@
 The `md-publisher` golang tool shall simplify the process of publishing local HTML (and
 using pandoc Markdown) files to https://medium.com.
 
-Local images are first uploaded to medium and then the article is published as
-draft.
+Local images are first uploaded to medium and then the article is published as draft.
 
 ## Installation
 
@@ -36,14 +35,13 @@ MediumAccessToken="YOUR_ACCESS_TOKEN"
 
 # Set this true if you never want to upload your images.
 NoImages="false"
-
 ```
 
 ## Running
 
-When using markdown files you could use pandoc for translating that into html (see examples/run.sh).
+When using markdown files you could use pandoc for translating that into HTML (see examples/run.sh).
 
-After that you should be able to upload a local HTML file with
+After that, you should be able to upload a local HTML file with
 
 ```bash
 md-publisher publish my_file.html
@@ -129,7 +127,7 @@ See https://pandoc.org/MANUAL.html#extension-yaml_metadata_block for all possibl
 For an example file see [data/demo_article.md](data/demo_article.md).
 
 A script for converting the `data/demo_article.md` to `data/demo_article.html` is here:
-[pandoc.sh](pandoc.sh)
+[pandoc-medium](pandoc-medium)
 
 For the `pandoc.sh` script the following tools must be in the search path of your shell
 
@@ -151,4 +149,4 @@ If you like you can use my [pandoc Docker containe](https://github.com/andremuel
 
 ## Known Issues
 
-- Nested lists do not work. However, medium.com seems to be the probleme here.
+- Nested lists do not work. However, medium.com seems to be the problem here.
